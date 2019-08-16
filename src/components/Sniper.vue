@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <textarea v-model="template" cols="300" rows="10"></textarea>
+      <textarea v-model="template" cols="200" rows="10"></textarea>
     </div>
     <div v-for="(fillValuesEntry, k) in fillValues" :key="k">
       <span v-for="variable in varList" :key="variable" style="padding-right: 20px">
@@ -12,7 +12,7 @@
       <button v-on:click="addFillValueEntry(k)" >+</button>
     </div>
     <div style="margin-top: 20px">
-      <textarea readonly v-model="generatedCommand" cols="300" rows="50"></textarea>
+      <textarea readonly v-model="generatedCommand" cols="200" rows="50"></textarea>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
       template: '',
       varList: [],
       fillValues: [], // [{key1: value1...}]
-      generatedCommand: 'aaa'
+      generatedCommand: ''
     }
   },
   watch: {
@@ -68,10 +68,17 @@ export default {
           const reg = new RegExp(`<${key}>`, 'g');
           t = t.replace(reg, `${fillValuesEntry[key]}`);
         }
-        result += `${t}\n`;
+        result += `${t}\n\n`;
       }
       this.generatedCommand = result;
     }
   }
 }
 </script>
+
+<style scoped>
+textarea {
+  font-family: 'Space Mono', 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+</style>

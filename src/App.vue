@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Sniper from './components/Sniper.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     Sniper
   }
 }
@@ -19,7 +17,8 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family:'Avenir', Helvetica, Arial, sans-serif;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
