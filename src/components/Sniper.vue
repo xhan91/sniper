@@ -1,5 +1,12 @@
 <template>
-  <textarea v-model="template" name="" id="" cols="30" rows="10" ></textarea>
+  <div>
+    <textarea v-model="template" name="" id="" cols="30" rows="10" ></textarea>
+    <ul>
+      <li v-for="variable in varList" :key="variable">
+        {{variable}}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -7,17 +14,25 @@ export default {
   name: 'sniper',
   data() {
     return {
-      template: ''
+      template: '',
+      varList: []
     }
   },
   watch: {
     template() {
-      return null;
+      this.extractVariables();
     }
   },
-  method: {
+  methods: {
     extractVariables() {
-      
+      const varSet = new Set();
+      const reg = /<(.+?)>/g
+      const vars = this.template.matchAll(reg);
+      for (const variable of vars) {
+        console.log(variable);
+        varSet.add(variable[1]);
+      }
+      this.varList = Array.from(varSet);
     }
   }
 }
