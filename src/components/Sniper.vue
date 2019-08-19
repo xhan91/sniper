@@ -1,19 +1,25 @@
 <template>
   <div>
-    <div>
-      <textarea v-model="template" cols="200" rows="10"></textarea>
-    </div>
-    <div v-for="(fillValuesEntry, k) in fillValues" :key="k">
-      <span v-for="variable in varList" :key="variable" style="padding-right: 20px">
-        <label for="variable" style="padding-right:5px">{{variable}}</label>
-        <input type="text" :id="variable" v-model="fillValuesEntry[variable]">
-      </span>
-      <button v-if="fillValues && fillValues.length > 1" v-on:click="removeFillValueEntry(k)">-</button>
-      <button v-on:click="addFillValueEntry(k)" >+</button>
-    </div>
-    <div style="margin-top: 20px">
-      <textarea readonly v-model="generatedCommand" cols="200" rows="50"></textarea>
-    </div>
+    <el-row style="margin-bottom: 20px">
+      <el-input type="textarea" :autosize="{minRows: 2}" v-model="template">
+      </el-input>
+    </el-row>
+    <el-row v-for="(fillValuesEntry, k) in fillValues" :key="k">
+      <el-col :span="varList.length ? Math.floor(20/varList.length) : 2" v-for="variable in varList" :key="variable" style="padding-right: 20px">
+        <el-input :placeholder="variable" v-model="fillValuesEntry[variable]">
+        </el-input>
+      </el-col>
+      <el-col :span="2">
+        <el-button circle type="success" icon="el-icon-plus" v-on:click="addFillValueEntry(k)"></el-button>
+      </el-col>
+      <el-col :span="2">
+        <el-button circle type="danger" icon="el-icon-minus" v-if="fillValues && fillValues.length > 1" v-on:click="removeFillValueEntry(k)"></el-button>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top: 20px">
+      <el-input type="textarea" :autosize="{minRows: 4}" readonly v-model="generatedCommand">
+      </el-input>
+    </el-row>
   </div>
 </template>
 
@@ -60,7 +66,6 @@ export default {
       this.varList = Array.from(varSet);
     },
     generateCommand() {
-      console.log('I run');
       let result = '';
       for (const fillValuesEntry of this.fillValues) {
         let t = this.template;
@@ -68,7 +73,7 @@ export default {
           const reg = new RegExp(`<${key}>`, 'g');
           t = t.replace(reg, `${fillValuesEntry[key]}`);
         }
-        result += `${t}\n\n`;
+        result += `${t}\n`;
       }
       this.generatedCommand = result;
     }
@@ -77,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-textarea {
+el-input {
   font-family: 'Space Mono', 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 14px;
 }

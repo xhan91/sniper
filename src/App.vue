@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Sniper - Command Generator</h1>
     <Sniper/>
   </div>
 </template>
@@ -17,12 +18,10 @@ export default {
 
 <style>
 #app {
-  font-family:'Avenir', Helvetica, Arial, sans-serif;
-  font-size: 20px;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
